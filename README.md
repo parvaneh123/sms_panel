@@ -2,12 +2,13 @@
 
 ## Installation
 create virtual environment
-'''bash
+```bash
 pip install virtualenv
 cd env/bin/activate
-'''
+```
 
-'''bash
+```bash
+
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
@@ -15,4 +16,5 @@ cd kavenegar-python-master
 pip install .
 cd ..
 python manage.py runserver
-'''
+
+```
