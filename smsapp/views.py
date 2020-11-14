@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from smsapp.models import CustomerGroups, Customer
 from kavenegar import *
+from django.conf import settings
 
 
 def my_view(request):
@@ -12,15 +13,13 @@ def my_view(request):
         if groups:
             id_customer = Customer.objects.filter(group_customer=groups).all()
             for i in id_customer:
-                api = KavenegarAPI(
-                    '7456493166424C494576574B6B61594861696A4E5A664E756F7346312B4B417138437A716E4F7A4C304D413D')
-                params = {'sender': '1000596446', 'receptor': "0" + str(i.phone_number), 'message': text_sms}
+                api = KavenegarAPI(settings.API_TOKEN)
+                params = {'sender': settings.SENDER, 'receptor': "0" + str(i.phone_number), 'message': text_sms}
                 response = api.sms_send(params)
             return HttpResponse('send message success')
         elif customer:
-            api = KavenegarAPI(
-                '7456493166424C494576574B6B61594861696A4E5A664E756F7346312B4B417138437A716E4F7A4C304D413D')
-            params = {'sender': '1000596446', 'receptor': "0" + str(customer.phone_number), 'message': text_sms}
+            api = KavenegarAPI(settings.API_TOKEN)
+            params = {'sender': settings.SENDER, 'receptor': "0" + str(customer.phone_number), 'message': text_sms}
             response = api.sms_send(params)
             return HttpResponse('send message for customer')
         else:
